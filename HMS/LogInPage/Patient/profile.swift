@@ -1,27 +1,19 @@
-//
-//  profile.swift
-//  LogInPage
-//
-//  Created by prakul agarwal on 28/05/24.
-//
-
 import SwiftUI
 
-struct ProfileView1: View {
+struct ProfileView: View {
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) { // Removed spacing to eliminate gap
-                // Profile Image with background matching list color
-                ZStack(alignment: .top) {
-                    Color(UIColor.systemGroupedBackground)
-                        .frame(height: 150)
-                    
+            VStack(spacing: 0) {
+                // Image centered above the list
+                VStack {
                     Image(systemName: "person.circle")
                         .resizable()
                         .frame(width: 100, height: 100)
                         .foregroundColor(.gray)
-                        .offset(y: 40) // Adjust the vertical position of the image
+                        .padding()
                 }
+                .frame(maxWidth: .infinity) // Make sure the image container takes the full width
+                .background(Color(UIColor.systemGroupedBackground)) // Match the background with the list's background
                 
                 // Menu List
                 List {
@@ -32,8 +24,8 @@ struct ProfileView1: View {
                         NavigationLink(destination: Text("Notifications")) {
                             Text("Notifications")
                         }
-                        NavigationLink(destination: Text("Appointments")) {
-                            Text("Health Details")
+                        NavigationLink(destination: Text("Health Details")) {
+                            Text("Appointments")
                         }
                     }
                     
@@ -70,12 +62,12 @@ struct ProfileView1: View {
             .navigationTitle("Profile") // Set the navigation title here
             .navigationBarHidden(false) // Ensure the navigation bar is not hidden
         }
-        .navigationBarBackButtonHidden()
+        .navigationBarBackButtonHidden(false) // Ensure the back button is shown
     }
 }
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView1()
+        ProfileView()
     }
 }

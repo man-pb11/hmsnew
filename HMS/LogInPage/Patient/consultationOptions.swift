@@ -22,7 +22,7 @@ struct ConsultationOptionsView: View {
                         .frame(minHeight: 150)
                 }
             }
-            .padding(.horizontal, 45) // Increased horizontal padding for the cards
+            .padding(.horizontal, 45) // Increased horizontal padding for the 
 
             Spacer()
         }

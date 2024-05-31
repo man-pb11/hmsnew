@@ -48,6 +48,8 @@ struct CheckUpsView: View {
             }
         }
         .background(Color(.systemGray6))
+        .navigationBarHidden(true) // Hide the navigation bar
+
     }
 }
 

@@ -15,7 +15,7 @@ struct HomeView: View {
                     Text("Check-Up")
                 }
             
-            ProfileView1()
+            ProfileView()
                 .tabItem {
                     Image(systemName: "person.crop.circle")
                     Text("Profile")
@@ -23,8 +23,8 @@ struct HomeView: View {
         }
     }
 }
-
 struct TodayView: View {
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -66,10 +66,7 @@ struct TodayView: View {
                     
                     SearchBar()
                         .padding(.horizontal)
-                    
-                    Text("Appointments")
-                        .font(.headline)
-                        .padding(.horizontal)
+
                     
                     HStack(spacing: 16) {
                         NavigationLink(destination: ClinicView()) {
@@ -85,12 +82,12 @@ struct TodayView: View {
                     }
                     .padding(.horizontal)
                     
-                    Text("Featured Services")
+                    Text("Treatments")
                         .font(.headline)
                         .padding(.horizontal)
                     
                     FeaturedServicesGrid()
-                        .padding(.horizontal)
+                        
                         .padding(.top, 1) // Reduced space between text and grid
                     
                     Text("Articles")
@@ -98,7 +95,7 @@ struct TodayView: View {
                         .padding(.horizontal)
                     
                     BestOffersView()
-                        .padding(.horizontal)
+                        
                 }
             }
             .navigationBarHidden(true)
@@ -107,10 +104,12 @@ struct TodayView: View {
     
     private func currentDate() -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "d MMM" // Changed format to exclude the day of the week
+        formatter.dateFormat = "d MMM"
         return formatter.string(from: Date())
     }
+
 }
+
 
 struct SearchBar: View {
     @State private var searchText = ""

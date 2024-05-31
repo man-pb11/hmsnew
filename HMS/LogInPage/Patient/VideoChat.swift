@@ -19,7 +19,7 @@ struct VideoChatView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
-                Form {
+                List {
                     Section {
                         HStack {
                             Text("Treatment")
@@ -83,17 +83,29 @@ struct VideoChatView: View {
                                 }
                             }
                         }
-
-                        Text("Priority patients are charged extra")
-                            .font(.caption)
-                            .foregroundColor(.gray)
                     }
+                }
+                .listStyle(InsetGroupedListStyle())
+                .frame(height: 165) // Adjust the height as needed
 
-                    Section(header: Text("Symptoms description")) {
+                Text("Priority patients are charged extra*")
+                    .font(.footnote)
+                                        .foregroundColor(.gray)
+                                        .padding(.horizontal)
+                
+                VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .leading) {
+                        Text("Symptoms description")
+                            .font(.headline)
                         TextField("What is problem you are facing?", text: $symptomsDescription)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding(.top, 4)
                     }
+                    .padding(.horizontal)
 
-                    Section(header: Text("Schedule")) {
+                    VStack(alignment: .leading) {
+                        Text("Schedule")
+                            .font(.headline)
                         ScrollView(.horizontal, showsIndicators: false) {
                             LazyHStack {
                                 ForEach(dates, id: \.self) { date in
@@ -119,10 +131,12 @@ struct VideoChatView: View {
                                 }
                             }
                         }
-                        .listRowBackground(Color.clear)
                     }
+                    .padding(.horizontal)
 
-                    Section(header: Text("Choose time")) {
+                    VStack(alignment: .leading) {
+                        Text("Choose time")
+                            .font(.headline)
                         ScrollView(.horizontal, showsIndicators: false) {
                             LazyHStack {
                                 ForEach(times, id: \.self) { time in
@@ -139,7 +153,7 @@ struct VideoChatView: View {
                             }
                         }
                     }
-                    .listRowBackground(Color.clear)
+                    .padding(.horizontal)
                 }
 
                 Button(action: {
@@ -153,28 +167,31 @@ struct VideoChatView: View {
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
-                .padding()
-                .alert(isPresented: $showingAlert) {
-                    Alert(
-                        title: Text("Appointment Booked"),
-                        message: Text("You can view your appointment In Check-ups"),
-                        primaryButton: .default(Text("View")) {
-                            navigateToCheckups = true
-                        },
-                        secondaryButton: .cancel(Text("Close"))
-                    )
-                }
-
-                .navigationDestination(isPresented: $navigateToCheckups) {
-                    CheckUpsView()
-                }
+                .padding(.horizontal)
+                .padding(.top, 16)
+                .padding(.bottom)
             }
-            .navigationBarTitle("Video Chat")
+            .background(Color(UIColor.systemGroupedBackground))
+            .alert(isPresented: $showingAlert) {
+                Alert(
+                    title: Text("Appointment Booked"),
+                    message: Text("You can view your appointment In Check-ups"),
+                    primaryButton: .default(Text("View")) {
+                        navigateToCheckups = true
+                    },
+                    secondaryButton: .cancel(Text("Close"))
+                )
+            }
+
+            .navigationDestination(isPresented: $navigateToCheckups) {
+                CheckUpsView()
+            }
+            .navigationBarTitle("Clinic Visit", displayMode: .inline)
         }
     }
 }
 
-struct VideoChatView_Previews: PreviewProvider {
+struct VideoChat_Previews: PreviewProvider {
     static var previews: some View {
         VideoChatView()
     }
